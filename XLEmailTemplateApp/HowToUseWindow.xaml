@@ -1,0 +1,115 @@
+﻿<Window x:Class="XLEmailTemplateApp.HowToUseWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:XLEmailTemplateApp"
+        mc:Ignorable="d"
+        Title="HowToUseWindow" Width="600" Background="#222222" SizeToContent="WidthAndHeight">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush Stretch="UniformToFill" ImageSource="Images/BackgroundTextureEmailApp.png" Opacity=".08" />
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="28" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <DockPanel Grid.ColumnSpan="1">
+            <Menu DockPanel.Dock="Top" />
+        </DockPanel>
+
+        <StackPanel Grid.Column="0" Grid.Row="1" Margin="45 10">
+            <StackPanel  Margin="10 30 20 10">
+                <Label FontSize="32" Padding="15 10 15 10" Background="#000000" Foreground="#f5ce42" FontWeight="DemiBold">
+                    How To Use This App
+                </Label>
+                <Label>
+                    Creating Templates
+                </Label>
+                <Grid Background="#CCCCCC" Width="480" Height="60">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="5*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Padding="10" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14">
+                        From Scratch
+                    </TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Padding="10" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14">
+                        FILE, NEW
+                    </TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Padding="10" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14">
+                        From Existing
+                    </TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Padding="10" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14">
+                        RIGHT-CLICK button, CREATE NEW VERSION
+                    </TextBlock>
+                </Grid>
+
+                <Label>
+                    Editing Templates
+                </Label>
+                <Grid Background="#CCCCCC" Width="480" Height="60">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="5*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Padding="10" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14">
+                        Change existing template
+                    </TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Padding="10" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14">
+                        RIGHT-CLICK button, EDIT
+                    </TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Padding="10" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14">
+                        Create new from existing
+                    </TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Padding="10" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14">
+                        RIGHT-CLICK button, CREATE NEW VERSION
+                    </TextBlock>
+                </Grid>
+                <Label>
+                    Deleting Templates
+                </Label>
+                <Grid Background="#CCCCCC" Width="480" Height="60">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="5*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Padding="10" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14">
+                        One template
+                    </TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Padding="10" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14">
+                        RIGHT-CLICK button, DELETE
+                    </TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Padding="10" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14">
+                        ALL templates
+                    </TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Padding="10" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14">
+                        FILE, DELETE ALL TEMPLATES
+                    </TextBlock>
+                </Grid>
+
+                <DockPanel Height="120" Width="450">
+                    <Button Name="CloseButton" VerticalAlignment="Bottom" Margin="20 0 0 40" Click="CloseButton_Click" Width="200" >Close</Button>
+                </DockPanel>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

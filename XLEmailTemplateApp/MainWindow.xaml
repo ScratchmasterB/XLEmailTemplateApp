@@ -1,0 +1,63 @@
+﻿ <Window x:Class="XLEmailTemplateApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:XLEmailTemplateApp"
+        mc:Ignorable="d"
+        Title="Email Templates" SizeToContent="WidthAndHeight" Background="#333333" >
+    <Window.Resources>
+        <ContextMenu x:Key="templateButtonContextMenu">
+            <MenuItem Header="Edit" Click="Edit_OnClick" />
+            <MenuItem Header="Change Button Color" Click="ChangeButtonColor_OnClick" />
+            <MenuItem Header="Create New Version" Click="CreateNewVersion_OnClick" />
+            <MenuItem Header="Delete" Click="Delete_OnClick" />
+        </ContextMenu>
+        <ContextMenu x:Key="signatureButtonContextMenu">
+            <MenuItem Header="Edit" Click="Edit_OnClick" />
+            <MenuItem Header="Change Button Color" Click="ChangeButtonColor_OnClick" />
+        </ContextMenu>
+        <ContextMenu x:Key="deleteConfirmContextMenu" >
+
+        </ContextMenu>
+    </Window.Resources>
+
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush Stretch="UniformToFill" ImageSource="Images/BackgroundTextureEmailApp.png" Opacity=".08" />
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="8*" />
+            <ColumnDefinition Width="161*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <DockPanel Grid.ColumnSpan="2" >
+            <Menu DockPanel.Dock="Bottom" >
+                <MenuItem Header="_File" >
+                    <MenuItem x:Name="FileNew" Header="_New" Click="File_New_Click" />
+                    <MenuItem x:Name="FileDeleteAll" Header="_Delete all" Click="File_DeleteAll_Click" />
+                    <MenuItem x:Name="FileExit" Header="_Exit" Click="File_Exit_Click" />
+                </MenuItem>
+                <MenuItem Header="_Options" >
+                    <MenuItem Header="_Reset All Button Colors" Click="Options_ResetAllButtonColors_Click" />
+                    <MenuItem x:Name="Settings" Header="_Settings" Click="Options_Settings_Click" />
+                </MenuItem>
+                <MenuItem Header="_Help" >
+                    <MenuItem Header="_How to use" Click="Help_HowToUse_Click"/>
+                    <MenuItem Header="_About" Click="Help_About_Click"/>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+        <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" >
+            <StackPanel x:Name="ButtonPanel" Margin="25 5 25 50">
+
+            </StackPanel>
+
+        </StackPanel>
+
+    </Grid>
+</Window>
