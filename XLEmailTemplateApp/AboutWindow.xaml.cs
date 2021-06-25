@@ -2,9 +2,6 @@
 
 namespace XLEmailTemplateApp
 {
-    /// <summary>
-    /// Interaction logic for AboutWindow.xaml
-    /// </summary>
     public partial class AboutWindow : Window
     {
         public AboutWindow()
@@ -20,7 +17,15 @@ namespace XLEmailTemplateApp
         public void OpenMainWindow()
         {
             var newWindow = new MainWindow();
-            newWindow.Show();
+            OpenNewWindow(newWindow);
+        }
+
+        public void OpenNewWindow(Window window)
+        {
+            window.WindowStartupLocation = WindowStartupLocation.Manual;
+            window.Left = this.Left;
+            window.Top = this.Top;
+            window.Show();
             Close();
         }
     }

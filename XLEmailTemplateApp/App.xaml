@@ -68,8 +68,5 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <!--<Style TargetType="Grid">
-            <Setter Property="Background" Value="#000000" />
-        </Style>-->
     </Application.Resources>
 </Application>

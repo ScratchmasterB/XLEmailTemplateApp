@@ -15,6 +15,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="28" />
+
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <DockPanel Grid.ColumnSpan="1">

@@ -104,7 +104,7 @@ namespace XLEmailTemplateApp
 
             if (SignatureTextBox.Text != MySignature.Text)
             {
-                // UpdateSignature()
+                MySignature.Text = SignatureTextBox.Text;
             }
 
 

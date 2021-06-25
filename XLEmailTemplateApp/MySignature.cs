@@ -82,6 +82,11 @@ namespace XLEmailTemplateApp
             doc.AppendChild(root);
             doc.Save(FilePath);
         }
+
+        static public void UpdateSignature()
+        {
+
+        }
     }
 
 
