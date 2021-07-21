@@ -16,13 +16,14 @@ namespace XLEmailTemplateApp
         public static string ButtonBackground { get; set; }
         public static string ButtonForeground { get; set; }
 
-
-        public static void CreateSignatureFolderPath()
+        public static void Load()
         {
             Directory.CreateDirectory(FolderPath);
+            if (File.Exists(FilePath)) Read();
+            else Write();
         }
 
-        public static void LoadFromFile()
+        public static void Read()
         {
             using (XmlReader read = XmlReader.Create(FilePath))
             {
@@ -49,17 +50,10 @@ namespace XLEmailTemplateApp
                 }
             }
 
-            WriteToFile();
+            Write();
         }
 
-        static public void NullCheck()
-        {
-            if (ButtonBackground == null) ButtonBackground = "#FF000000";
-            if (ButtonForeground == null) ButtonForeground = "#FFf5ce42";
-            if (String.IsNullOrWhiteSpace(Text)) Text = "Default Signature";
-        }
-
-        static public void WriteToFile()
+        static public void Write()
         {
             NullCheck();
 
@@ -83,9 +77,11 @@ namespace XLEmailTemplateApp
             doc.Save(FilePath);
         }
 
-        static public void UpdateSignature()
+        static public void NullCheck()
         {
-
+            if (ButtonBackground == null) ButtonBackground = "#FF000000";
+            if (ButtonForeground == null) ButtonForeground = "#FFf5ce42";
+            if (String.IsNullOrWhiteSpace(Text)) Text = "Default Signature";
         }
     }
 

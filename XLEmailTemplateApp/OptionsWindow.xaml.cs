@@ -10,55 +10,23 @@ namespace XLEmailTemplateApp
         {
             InitializeComponent();
 
-            NameOptionCheckBox.IsChecked = (Options.hasNameOptionOn) ? true : false;
-            NameOptionTextBlock.Text = $"hasNameOptionOn = {Options.hasNameOptionOn}";
-
-            DefaultTextCheckBox.IsChecked = (Options.isShowingDefaultText) ? true : false;
-            DefaultTextTextBlock.Text = $"isShowingDefaultText = {Options.isShowingDefaultText}";
-
-            PreviewPaneCheckBox.IsChecked = (Options.isShowingPreviewPane) ? true : false;
-            PreviewPaneTextBlock.Text = $"isShowingPreviewPane = {Options.isShowingPreviewPane}";
-
-            DoubleColumnCheckBox.IsChecked = (Options.isShowingPreviewPane) ? true : false;
-            DoubleColumnTextBlock.Text = $"isDoubleColumn = {Options.isDoubleColumn}";
+            IanOptionCheckBox.IsChecked = MyPreferences.IsActive_IanOption;
+            DefaultTextCheckBox.IsChecked = MyPreferences.IsShowingDefaultText;
         }
 
+
+        private void IanOptionCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            MyPreferences.IsActive_IanOption = !MyPreferences.IsActive_IanOption;
+            IanOptionCheckBox.IsChecked = MyPreferences.IsActive_IanOption;
+            MyPreferences.Write();
+        }
 
         private void DefaultTextCheckBox_Click(object sender, RoutedEventArgs e)
         {
-            DefaultTextTextBlock.Text = "You really fucking did it, Brian even super stoned.";
-            DefaultTextCheckBox.IsChecked = false;
-        }
-
-        private void DefaultTextCheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            Options.isShowingDefaultText = true;
-            DefaultTextCheckBox.IsChecked = true;
-            Options.SaveSettings();
-        }
-
-        private void PreviewPaneCheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            Options.isShowingPreviewPane = true;
-            Options.SaveSettings();
-        }
-
-        private void NameOptionCheckBox_Unchecked(object sender, RoutedEventArgs e)
-        {
-            Options.hasNameOptionOn = false;
-            Options.SaveSettings();
-        }
-
-        private void DefaultTextCheckBox_Unchecked(object sender, RoutedEventArgs e)
-        {
-            Options.isShowingDefaultText = false;
-            Options.SaveSettings();
-        }
-
-        private void PreviewPaneCheckBox_Unchecked(object sender, RoutedEventArgs e)
-        {
-            Options.isShowingPreviewPane = false;
-            Options.SaveSettings();
+            MyPreferences.IsShowingDefaultText = !MyPreferences.IsShowingDefaultText;
+            DefaultTextCheckBox.IsChecked = MyPreferences.IsShowingDefaultText;
+            MyPreferences.Write();
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -69,14 +37,11 @@ namespace XLEmailTemplateApp
         public void OpenMainWindow()
         {
             var newWindow = new MainWindow();
+            newWindow.WindowStartupLocation = WindowStartupLocation.Manual;
+            newWindow.Left = this.Left;
+            newWindow.Top = this.Top;
             newWindow.Show();
             Close();
-        }
-
-        private void DoubleColumnCheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            Options.isDoubleColumn = true;
-            Options.SaveSettings();
         }
     }
 }

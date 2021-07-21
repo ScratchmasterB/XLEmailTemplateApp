@@ -5,7 +5,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Path = System.IO.Path;
+using System.Collections.Generic;
+using System.Runtime;
+using System;
 
 namespace XLEmailTemplateApp
 {
@@ -21,48 +25,49 @@ namespace XLEmailTemplateApp
         {
             InitializeComponent();
 
-            Options.LoadSettings();
-
-            MyTemplates.isNewVersion = false;
-            MyTemplates.CreateEmailTemplatesFolderPath();
-            MySignature.CreateSignatureFolderPath();
+            MyPreferences.Load();
+            MyTemplates.Load();
+            MySignature.Load();
 
             AddNameLabel();
             AddTemplateButtons();
             AddSignatureButton();
 
+            CheckIanOption();
         }
 
-
-        private void IanOption()
+        public void CheckIanOption()
         {
-
+            if (MyPreferences.IsActive_IanOption)
+            {
+                TheGrid.Background = IanOption.SetBackground();
+                IanOption.SetMenuColors(DockMenu);
+                IanOption.SetButtonColors(ButtonPanel);
+            }
+            else return;
         }
 
-        private void ChangeButtonColor_OnClick(object sender, RoutedEventArgs e)
+        private void HighlightButton_OnClick(object sender, RoutedEventArgs e)
         {
-
-            rightClickedButton.Background = Brushes.Red;
-
+            rightClickedButton.BorderBrush = rightClickedButton.Foreground;
+            rightClickedButton.BorderThickness = new Thickness(3);
         }
 
         public void AddNameLabel()
         {
-            if (Options.hasNameOptionOn)
+            Label addresseeLabel = new Label
             {
-                var addresseeLabel = new Label
-                {
-                    Content = "Contact name:"
-                };
-                ButtonPanel.Children.Add(addresseeLabel);
-                NameTextBox = new TextBox();
-                ButtonPanel.Children.Add(NameTextBox);
-            }
-            else
+                Content = "Contact name:"
+            };
+            
+            NameTextBox = new TextBox();
+            if (MyPreferences.IsActive_IanOption)
             {
-                var spacerLabel = new Label();
-                ButtonPanel.Children.Add(spacerLabel);
+                addresseeLabel.Foreground = Hexy.HexToBrush(Hexy.CleanUpHex("#007777"));
+                NameTextBox.Background = Hexy.HexToBrush(Hexy.CleanUpHex("#CCFFFF"));
             }
+            ContactNamePanel.Children.Add(addresseeLabel);
+            ContactNamePanel.Children.Add(NameTextBox);
         }
 
         public void AddTemplateButtons()
@@ -79,14 +84,17 @@ namespace XLEmailTemplateApp
                     template.ReadXmlTemplate();
                     template.SetButtonName();
 
+                    var background = Hexy.HexToBrush(Hexy.CleanUpHex(template.ButtonBackgroundColor));
+                    var foreground = Hexy.HexToBrush(Hexy.CleanUpHex(template.ButtonForegroundColor));
+
                     var button = new Button()
                     {
                         Name = Path.GetFileNameWithoutExtension(xmlFile.Name),
                         Content = template.TemplateName,
-                        Background = Hexy.HexToBrush(Hexy.CleanUpHex(template.ButtonBackgroundColor)),
-                        Foreground = Hexy.HexToBrush(Hexy.CleanUpHex(template.ButtonForegroundColor))
+                        Background = background,
+                        Foreground = foreground,
                     };
-
+  
                     button.Click += new RoutedEventHandler(LoadTemplateToClipboard_Click);
                     button.MouseRightButtonDown += new MouseButtonEventHandler(TemplateButton_MouseRightButtonDown);
                     ButtonPanel.Children.Add(button);
@@ -110,14 +118,11 @@ namespace XLEmailTemplateApp
         public void AddSignatureButton()
         {
 
-            if (File.Exists(MySignature.FilePath))
-            {
-                MySignature.LoadFromFile();
-            }
-            else
-            {
-                MySignature.WriteToFile();
-            }
+            if (File.Exists(MySignature.FilePath)) MySignature.Load();
+            else MySignature.Write();
+
+            var background = Hexy.HexToBrush(Hexy.CleanUpHex(MySignature.ButtonBackground));
+            var foreground = Hexy.HexToBrush(Hexy.CleanUpHex(MySignature.ButtonForeground));
 
             var button = new Button()
             {
@@ -125,9 +130,10 @@ namespace XLEmailTemplateApp
                 Content = "Signature",
                 Height = 60,
                 Margin = new Thickness(5, 20, 5, 5),
-                Background = Hexy.HexToBrush(Hexy.CleanUpHex(MySignature.ButtonBackground)),
-                Foreground = Hexy.HexToBrush(Hexy.CleanUpHex(MySignature.ButtonForeground))
+                Background = background,
+                Foreground = foreground
             };
+
             button.Click += new RoutedEventHandler(LoadSignatureToClipboard_Click);
             button.MouseRightButtonDown += new MouseButtonEventHandler(SignatureButton_MouseRightButtonDown);
             ButtonPanel.Children.Add(button);
@@ -143,7 +149,7 @@ namespace XLEmailTemplateApp
 
         private void LoadSignatureToClipboard_Click(object sender, RoutedEventArgs e)
         {
-            MySignature.LoadFromFile();
+            MySignature.Load();
             Clipboard.Clear();
             Clipboard.SetText(MySignature.Text);
             NameTextBox.Clear();
@@ -196,12 +202,11 @@ namespace XLEmailTemplateApp
                 var newWindow = new EditTemplateWindow(rightClickedButton);
                 OpenNewWindow(newWindow);
             }
-
         }
 
         public void CreateNewVersion_OnClick(object sender, RoutedEventArgs e)
         {
-            MyTemplates.isNewVersion = true;
+            MyTemplates.IsNewVersion = true;
             var newWindow = new EditTemplateWindow(rightClickedButton);
             OpenNewWindow(newWindow);
         }
@@ -236,14 +241,28 @@ namespace XLEmailTemplateApp
 
             if (!string.IsNullOrWhiteSpace(template.Greeting))
             {
-                email.Append(template.Greeting + " ");
-                email.Append(template.Addressee);
-                email.Append("\r\n\r\n");
+
+                email.Append(template.Greeting + " " + template.Addressee);
+                email.Append("\x0A");
+                email.Append("\x0A");
+
             }
 
-            email.Append(string.IsNullOrWhiteSpace(template.Body) ? "" : $"{template.Body}\r\n\r\n");
-            email.Append(string.IsNullOrWhiteSpace(template.Closing) ? "" : $"{template.Closing}\r\n\r\n");
-            email.Append(string.IsNullOrWhiteSpace(MySignature.Text) ? "" : MySignature.Text);
+            if (!string.IsNullOrWhiteSpace(template.Body))
+            {
+                email.Append(template.Body);
+                email.Append("\x0A");
+                email.Append("\x0A");
+            }
+
+            if (!string.IsNullOrWhiteSpace(template.Closing))
+            {
+                email.Append(template.Closing);
+                email.Append("\x0A");
+                email.Append("\x0A");
+            }
+
+            email.Append(MySignature.Text);
 
             return email.ToString();
         }
@@ -293,7 +312,7 @@ namespace XLEmailTemplateApp
 
             MySignature.ButtonBackground = "#FF000000";
             MySignature.ButtonForeground = "#FFf5ce42";
-            MySignature.WriteToFile();
+            MySignature.Write();
         }
 
         private void Help_About_Click(object sender, RoutedEventArgs e)
@@ -341,6 +360,11 @@ namespace XLEmailTemplateApp
         {
             OptionsWindow newWindow = new OptionsWindow();
             OpenNewWindow(newWindow);
+        }
+
+        private void ButtonPanel_Drop(object sender, DragEventArgs e)
+        {
+
         }
     }
 }

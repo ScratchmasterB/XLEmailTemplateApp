@@ -100,8 +100,10 @@
     <Compile Include="HowToUseWindow.xaml.cs">
       <DependentUpon>HowToUseWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="IanOption.cs" />
+    <Compile Include="MyButtons.cs" />
     <Compile Include="MyTemplates.cs" />
-    <Compile Include="Options.cs" />
+    <Compile Include="MyPreferences.cs" />
     <Compile Include="OptionsWindow.xaml.cs">
       <DependentUpon>OptionsWindow.xaml</DependentUpon>
     </Compile>
@@ -189,6 +191,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\BackgroundTextureEmailApp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\IanOptionBG.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

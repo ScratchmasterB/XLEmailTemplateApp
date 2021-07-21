@@ -158,8 +158,6 @@ namespace XLEmailTemplateApp
             }
         }
 
-
-
         public void ReadXmlTemplate()
         {
             using (XmlReader read = XmlReader.Create(FilePath))

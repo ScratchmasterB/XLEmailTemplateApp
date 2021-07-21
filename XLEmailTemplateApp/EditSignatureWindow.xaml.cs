@@ -9,7 +9,7 @@ namespace XLEmailTemplateApp
         {
             InitializeComponent();
 
-            MySignature.LoadFromFile();
+            MySignature.Load();
             SignatureTextBox.Text = MySignature.Text;
             ButtonBackgroundTextBox.Text = MySignature.ButtonBackground;
             ButtonForegroundTextBox.Text = MySignature.ButtonForeground;
@@ -22,7 +22,7 @@ namespace XLEmailTemplateApp
             MySignature.Text = SignatureTextBox.Text;
             MySignature.ButtonBackground = ButtonBackgroundTextBox.Text;
             MySignature.ButtonForeground = ButtonForegroundTextBox.Text;
-            MySignature.WriteToFile();
+            MySignature.Write();
             OpenMainWindow();
         }
 

@@ -38,13 +38,6 @@
             <Setter Property="Width" Value="250" />
             <Setter Property="Padding" Value="10 8 10 8" />
         </Style>
-        <Style TargetType="Menu">
-            <Setter Property ="Height" Value="35" />
-            <Setter Property ="Margin" Value="0" />
-            <Setter Property ="Padding" Value="0" />
-            <Setter Property ="Background" Value="#000000" />
-            <Setter Property ="Foreground" Value="#f5ce42" />
-        </Style>
         <Style TargetType="CheckBox">
             <Setter Property ="Height" Value="35" />
             <Setter Property ="Margin" Value="10" />
@@ -53,16 +46,20 @@
             <Setter Property ="Foreground" Value="#f5ce42" />
             <Setter Property="FontSize" Value="14" />
         </Style>
+        <Style TargetType="Menu">
+            <Setter Property ="Height" Value="35" />
+            <Setter Property ="Margin" Value="0" />
+            <Setter Property ="Padding" Value="0" />
+            <Setter Property ="Background" Value="#000000" />
+            <Setter Property ="Foreground" Value="#f5ce42" />
+        </Style>
         <Style TargetType="MenuItem">
             <Setter Property ="Margin" Value="0" />
             <Setter Property ="Padding" Value="8" />
-            <Setter Property ="Background" Value="#000000" />
-            <Setter Property ="Foreground" Value="#f5ce42" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Foreground" Value="#FFFFFF" />
                     <Setter Property="FontWeight" Value="ExtraBold" />
                     <Setter Property="Background" Value="Black" />
                 </Trigger>

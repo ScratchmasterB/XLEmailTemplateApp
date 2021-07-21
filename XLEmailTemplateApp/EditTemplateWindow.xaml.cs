@@ -16,7 +16,7 @@ namespace XLEmailTemplateApp
             var template = new Template(button.Name + ".xml");
             template.ReadXmlTemplate();
 
-            if (MyTemplates.isNewVersion)
+            if (MyTemplates.IsNewVersion)
             {
                 Title = "New Version";
             }
@@ -35,7 +35,7 @@ namespace XLEmailTemplateApp
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (InitialTemplateName == TemplateNameTextBox.Text && MyTemplates.isNewVersion)
+            if (InitialTemplateName == TemplateNameTextBox.Text && MyTemplates.IsNewVersion)
             {
                 MessageBox.Show("New template version must have a different name", "Error message", MessageBoxButton.OK, MessageBoxImage.Warning);
             }

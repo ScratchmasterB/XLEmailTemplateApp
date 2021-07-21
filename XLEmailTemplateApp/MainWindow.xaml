@@ -9,13 +9,13 @@
     <Window.Resources>
         <ContextMenu x:Key="templateButtonContextMenu">
             <MenuItem Header="Edit" Click="Edit_OnClick" />
-            <MenuItem Header="Change Button Color" Click="ChangeButtonColor_OnClick" />
+            <MenuItem Header="Highlight Button" Click="HighlightButton_OnClick" />
             <MenuItem Header="Create New Version" Click="CreateNewVersion_OnClick" />
             <MenuItem Header="Delete" Click="Delete_OnClick" />
         </ContextMenu>
         <ContextMenu x:Key="signatureButtonContextMenu">
             <MenuItem Header="Edit" Click="Edit_OnClick" />
-            <MenuItem Header="Change Button Color" Click="ChangeButtonColor_OnClick" />
+            <MenuItem Header="Highlight Button" Click="HighlightButton_OnClick" />
         </ContextMenu>
         <ContextMenu x:Key="deleteConfirmContextMenu" >
 
@@ -23,7 +23,7 @@
     </Window.Resources>
 
 
-    <Grid>
+    <Grid x:Name="TheGrid">
         <Grid.Background>
             <ImageBrush Stretch="UniformToFill" ImageSource="Images/BackgroundTextureEmailApp.png" Opacity=".08" />
         </Grid.Background>
@@ -36,7 +36,7 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <DockPanel Grid.ColumnSpan="2" >
-            <Menu DockPanel.Dock="Bottom" >
+            <Menu x:Name="DockMenu" DockPanel.Dock="Bottom" >
                 <MenuItem Header="_File" >
                     <MenuItem x:Name="FileNew" Header="_New" Click="File_New_Click" />
                     <MenuItem x:Name="FileDeleteAll" Header="_Delete all" Click="File_DeleteAll_Click" />
@@ -53,10 +53,12 @@
             </Menu>
         </DockPanel>
         <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" >
-            <StackPanel x:Name="ButtonPanel" Margin="25 5 25 50">
+            <StackPanel x:Name="ContactNamePanel" Margin="25 5 25 10" AllowDrop="True" Drop="ButtonPanel_Drop" >
 
             </StackPanel>
+            <StackPanel x:Name="ButtonPanel" Margin="25 5 25 50" AllowDrop="True" Drop="ButtonPanel_Drop" >
 
+            </StackPanel>
         </StackPanel>
 
     </Grid>

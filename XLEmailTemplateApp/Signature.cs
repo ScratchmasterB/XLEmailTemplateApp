@@ -6,6 +6,5 @@
         public string ButtonBackground { get; set; }
         public string ButtonForeground { get; set; }
         public string FolderPath { get; set; } = MySignature.FolderPath;
-
     }
 }

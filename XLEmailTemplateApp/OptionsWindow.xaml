@@ -30,16 +30,10 @@
                 </Label>
                 <StackPanel Margin="0" Orientation="Horizontal">
                     <StackPanel Margin="10, 20, 10, 20">
-                        <CheckBox Name="NameOptionCheckBox" Content="   Show name option"  />
-                        <TextBlock Name="NameOptionTextBlock" Text="Default" />
-                        <CheckBox Name="DefaultTextCheckBox" Content="   Show default text" Checked="DefaultTextCheckBox_Checked" Click="DefaultTextCheckBox_Click" />
+                        <CheckBox Name="IanOptionCheckBox" Content="   Activate Ian Option" Click="IanOptionCheckBox_Click" />
+                        <TextBlock Name="IanOptionTextBlock" Text="Default" />
+                        <CheckBox Name="DefaultTextCheckBox" Content="   Show default text" Click="DefaultTextCheckBox_Click" />
                         <TextBlock Name="DefaultTextTextBlock" Text="Default" />
-
-                        <CheckBox x:Name="PreviewPaneCheckBox" Content="   Show preview pane" IsChecked="False" />
-                        <TextBlock x:Name="PreviewPaneTextBlock" Text="Default" />
-
-                        <CheckBox x:Name="DoubleColumnCheckBox" Checked="DoubleColumnCheckBox_Checked" Content="   Display buttons in two columns" IsChecked="False" />
-                        <TextBlock x:Name="DoubleColumnTextBlock" Text="Default" />
                     </StackPanel>
                     <StackPanel Margin="10, 20, 10, 20">
 

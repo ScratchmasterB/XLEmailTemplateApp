@@ -7,5 +7,6 @@ namespace XLEmailTemplateApp
     /// </summary>
     public partial class App : Application
     {
+
     }
 }
